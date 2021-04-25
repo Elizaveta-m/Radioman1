@@ -14,6 +14,14 @@ class RadioTest {
     }
 
     @Test
+    public void shouldGetAndSetLastStation() {
+        Radio radio = new Radio(11);
+        radio.setCurrentRadioStation(12);
+        int expected = 0;
+        assertEquals(expected, radio.getCurrentRadioStation());
+    }
+
+    @Test
     public void shouldGetAndSetVolume() {
         Radio radio = new Radio();
         radio.setVolume(5);
@@ -33,7 +41,16 @@ class RadioTest {
     @Test
     public void shouldSwitchToNextStationIfLimit() {
         Radio radio = new Radio();
-        radio.setCurrentRadioStation(9);
+        radio.setCurrentRadioStation(10);
+        radio.switchToNextStation();
+        int expected = 0;
+        assertEquals(expected, radio.getCurrentRadioStation());
+    }
+
+    @Test
+    public void shouldSetLastAndSwitchToNextStationIfLimit() {
+        Radio radio = new Radio(15);
+        radio.setCurrentRadioStation(15);
         radio.switchToNextStation();
         int expected = 0;
         assertEquals(expected, radio.getCurrentRadioStation());
@@ -62,7 +79,7 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentRadioStation(0);
         radio.switchToPrevStation();
-        int expected = 9;
+        int expected = 10;
         assertEquals(expected, radio.getCurrentRadioStation());
     }
 
@@ -71,7 +88,7 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentRadioStation(-5);
         radio.switchToPrevStation();
-        int expected = 8;
+        int expected = 9;
         assertEquals(expected, radio.getCurrentRadioStation());
     }
 
@@ -87,9 +104,9 @@ class RadioTest {
     @Test
     public void shouldIncreaseVolumeOverLimit() {
         Radio radio = new Radio();
-        radio.setVolume(20);
+        radio.setVolume(101);
         radio.increaseVolume();
-        int expected = 10;
+        int expected = 100;
         assertEquals(expected, radio.getVolume());
     }
 
